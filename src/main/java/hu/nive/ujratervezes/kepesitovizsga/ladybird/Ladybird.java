@@ -50,8 +50,6 @@ public class Ladybird {
         } catch (SQLException sqlException) {
             throw new IllegalStateException("Cannot query", sqlException);
         }
-
-
     }
 
     private Map<Integer, Integer> getResultByNumberOfPoints(PreparedStatement ps) {
@@ -89,6 +87,29 @@ public class Ladybird {
                         rs.getString("latin_name"),
                         rs.getString("genus"),
                         rs.getInt("number_of_points")));
+            }
+        } catch (SQLException sqlException) {
+            throw new IllegalStateException("Cannot query", sqlException);
+        }
+        return result;
+    }
+
+    public Map<String, Integer> getLadybirdStatistics() {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("select genus as result from ladybirds")){
+            return getResultStatistic(ps);
+
+        } catch (SQLException sqlException) {
+            throw new IllegalStateException("Cannot query", sqlException);
+        }
+    }
+    private Map<String, Integer> getResultStatistic(PreparedStatement ps) {
+
+        Map<String, Integer> result = new HashMap<>();
+        try (ResultSet rs = ps.executeQuery()){
+            while (rs.next()){
+                String genus = rs.getString("result");
+                result.merge(genus, 1, Integer::sum);
             }
         } catch (SQLException sqlException) {
             throw new IllegalStateException("Cannot query", sqlException);

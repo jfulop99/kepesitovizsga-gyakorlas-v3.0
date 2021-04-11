@@ -67,11 +67,11 @@ public class LadybirdTest {
         Assertions.assertFalse(ladybirds.contains(new Ladybug("sárgafejű bödice", "(Scymnus auritus)", "bödiceformák(Scymninae)", 0)));
     }
 
-//    @Test
-//    public void testGetLadybirdStatistics() {
-//        Map<String, Integer> ladybirdStatistics = ladybird.getLadybirdStatistics();
-//
-//        Assertions.assertEquals(36, ladybirdStatistics.get("katicaformák (Coccinellinae)"));
-//        Assertions.assertEquals(5, ladybirdStatistics.get("szerecsenkata-formák (Chilocorinae)"));
-//    }
+    @Test
+    public void testGetLadybirdStatistics() {
+        Map<String, Integer> ladybirdStatistics = ladybird.getLadybirdStatistics();
+
+        Assertions.assertEquals(36, ladybirdStatistics.get("katicaformák (Coccinellinae)"));
+        Assertions.assertEquals(5, ladybirdStatistics.get("szerecsenkata-formák (Chilocorinae)"));
+    }
 }
